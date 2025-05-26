@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       .canvas{
+     
+        display: grid;
+       
+        gap : 2px;
+       }
+
+       .cell{
+        background-color: rgb(165, 204, 248);
+
+       }
+
+
+    </style>
+</head>
+<body>
+    <div class = "navbar"><h1>this will be nav</h1>
+    
+    </div>
+
+    <div class = "options">
+        <button class = "runalgo">Run</button>
+        <select name="state-choice" >
+
+            <option value="start-node">select start node</option>
+            <option value="end-node">select end node</option>
+            <option value="draw-obstacle">draw obstacle</option>
+            <option value="erase-obstacle">erase obstacle</option>
+
+        </select>
+        <button class = "randomize-button">Random Obstacles</button>
+
+    </div>
+
+    <div class = "canvas"></div>
+    
+    <script src = 'static/javascript/main.js' type = 'module'></script>
+</body>
+</html>
