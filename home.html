@@ -14,6 +14,8 @@
 
        .cell{
         background-color: rgb(165, 204, 248);
+        border-radius: 20%;
+        
 
        }
 
@@ -26,8 +28,9 @@
     </div>
 
     <div class = "options">
-        <button class = "runalgo">Run</button>
-        <select name="state-choice" >
+        <button class = "runalgo" >Run</button>
+        <button class = "pause-button" disabled>Pause</button>
+        <select name="state-choice" id = "curr-operation" >
 
             <option value="start-node">select start node</option>
             <option value="end-node">select end node</option>
@@ -36,6 +39,7 @@
 
         </select>
         <button class = "randomize-button">Random Obstacles</button>
+        <button class = 'reset' >Reset</button>
 
     </div>
 

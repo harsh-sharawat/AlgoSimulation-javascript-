@@ -1,6 +1,6 @@
 import {Queue} from './queue.js';
-import {updateColor} from './gridcolorupdation.js';
-
+import {updateColor} from './utilities.js';
+import {state} from './main.js';
 
 
 function isvalid(i , j , n , m )
@@ -16,12 +16,17 @@ export async function bfs(startnode, endnode , grid){
     const delcol = [0,1,0,-1];
     let q = new Queue();
     q.push(startnode);
-    let vis = grid;
+    let vis = JSON.parse(JSON.stringify(grid));
     const i = startnode[0];
     const j = startnode[1];
 
     vis[i][j]  = -1; 
     while(!q.empty()){
+
+            if(state!='running'){
+                console.log('ranalgo intrrupted');
+                return;
+            }
 
        
             let currnode = q.pop();
@@ -29,12 +34,14 @@ export async function bfs(startnode, endnode , grid){
             let curri = currnode[0];
             let currj = currnode[1];
 
-            if(curri == endnode[0] && currj == endnode[1]){
+            if(curri === endnode[0] && currj === endnode[1]){
                 console.log('target reached');
                 break;
             }
             const cellid = curri*numberofcols + currj;
-            await updateColor(cellid);
+
+            if(!(curri === startnode[0] && currj === startnode[1]) && !(curri === endnode[0] && currj === endnode[1])) 
+                await updateColor(cellid);
 
             for(let k = 0 ; k<4 ; k++){
                 const ni = curri + delrow[k];
@@ -48,5 +55,6 @@ export async function bfs(startnode, endnode , grid){
         
        
     }
+    
 
 }
