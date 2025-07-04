@@ -227,7 +227,7 @@ document.querySelector(".randomize-button").addEventListener('click',()=>{
 
     for(let i = 0 ;i<numberofrows ; i++){
         for(let j = 0 ; j<numberofcols ; j++){
-            if(grid[i][j] !== 0 ) continue;
+            if(grid[i][j] !== 0 && grid[i][j]!=-1) continue;
             const rnd = Math.random();
             if(rnd<1/3){
                 grid[i][j] = -1;
