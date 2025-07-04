@@ -9,7 +9,7 @@
      
         display: grid;
        
-        gap : 2px;
+        gap : 1px;
        }
 
        .cell{
@@ -18,12 +18,15 @@
         
 
        }
-
+       .drawing-mode{
+        cursor: crosshair;
+       } 
 
     </style>
 </head>
 <body>
-    <div class = "navbar"><h1>this will be nav</h1>
+    <div class = "navbar">
+        <h1>this will be nav</h1>
     
     </div>
 
@@ -43,7 +46,10 @@
 
     </div>
 
-    <div class = "canvas"></div>
+    <div class = "canvas">
+
+
+    </div>
     
     <script src = 'static/javascript/main.js' type = 'module'></script>
 </body>

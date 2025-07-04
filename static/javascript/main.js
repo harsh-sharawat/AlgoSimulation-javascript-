@@ -15,14 +15,115 @@ setInitialGrid();
 
 
 
+let isDrawing = false;
+var isMouseDown = false;
+let lastcell = null;
 
 
 
+const operationBtn = document.getElementById('curr-operation');
+
+operationBtn.addEventListener('change', ()=>{
+    isDrawing = (operationBtn.value === 'draw-obstacle');
+
+  
+});
+
+
+document.querySelector('.canvas').addEventListener('mousedown' , ()=>{
+    if(!isDrawing) return;
+
+    document.querySelector('.canvas').classList.add('drawing-mode');
+
+    isMouseDown = true;
+    return;
+});
+
+document.querySelector('body').addEventListener('mouseup', ()=>{
+    if(!isDrawing || !isMouseDown) return;
+    document.querySelector('.canvas').classList.remove('drawing-mode');
+
+    isMouseDown = false;
+    lastcell = null;
+    return;
+});
+
+
+
+
+
+
+document.querySelector('.canvas').addEventListener('mousemove', (event)=>{
+    if(!isDrawing || !isMouseDown) return;
+
+    // setInitialGrid();
+    if(event.target.classList.contains('cell')){
+        var cellid =event.target.id;
+        const Node = getcoordinates(cellid);
+        
+
+        if(lastcell){
+
+            const lastid = getcellid(...lastcell);
+
+            const points = getPoints(lastcell , Node);
+            for(const [r ,c ] of points){
+
+                const id = getcellid(r, c);
+                if(id === lastid ) continue;
+                if(grid[r][c] === 0 ){
+                    grid[r][c] = -1;
+                    colorWithoutDelay(id, 'gray');
+                }else if(grid[r][c] === -1){
+                    grid[r][c] = 0 ;
+                    colorWithoutDelay(id , 'rgb(165, 204, 248)');
+                } 
+            }
+        }
+
+        lastcell = Node;
+
+
+
+    }
+}
+);
+
+
+
+function getPoints(start, end) {
+  const [x0, y0] = start;
+  const [x1, y1] = end;
+
+  const points = [];
+
+  const dx = Math.abs(x1 - x0);
+  const dy = Math.abs(y1 - y0);
+
+  const sx = x0 < x1 ? 1 : -1;
+  const sy = y0 < y1 ? 1 : -1;
+
+  let err = dx - dy;
+
+  let x = x0, y = y0;
+
+  while (true) {
+    points.push([x, y]);
+    if (x === x1 && y === y1) break;
+    const e2 = 2 * err;
+    if (e2 > -dy) { err -= dy; x += sx; }
+    if (e2 < dx)  { err += dx; y += sy; }
+  }
+
+  return points;
+}
 
 
 
 document.querySelector('.canvas').addEventListener('click', (event)=>{
-    if(state === 'running') return ;
+    if(state === 'running' || isDrawing) return ;
+
+    
     let cellid = null;
     if(event.target.classList.contains('cell')){
         cellid = event.target.id;
@@ -30,9 +131,12 @@ document.querySelector('.canvas').addEventListener('click', (event)=>{
 
     const currOperation = document.getElementById('curr-operation').value;
 
+    let Node = getcoordinates(cellid);
+    if(grid[Node[0]][Node[1]] === 1 || grid[Node[0]][Node[1]] === 2) return;
+    setInitialGrid();
     if(currOperation === 'start-node'){
-        let node = getcoordinates(cellid);
-        if(grid[node[0]][node[1]] === 0 ){
+        let node = Node
+        
             if(start_node){
                 grid[start_node[0]][start_node[1]] = 0 ;
                 colorWithoutDelay(getcellid(start_node[0], start_node[1]) , 'rgb(165, 204, 248)');
@@ -45,13 +149,12 @@ document.querySelector('.canvas').addEventListener('click', (event)=>{
             set_state();
             console.log(state);
             
-        }
+        
         return ;
     }
 
     if(currOperation === 'end-node'){
-        let node  = getcoordinates(cellid);
-        if(grid[node[0]][node[1]] === 0 ){
+        let node  = Node;
             if(end_node){
                 grid[end_node[0]][end_node[1]] = 0 ;
                 colorWithoutDelay(getcellid(end_node[0] , end_node[1]) , 'rgb(165, 204, 248)');
@@ -62,16 +165,29 @@ document.querySelector('.canvas').addEventListener('click', (event)=>{
             colorWithoutDelay(cellid , 'red');
             set_state();
             console.log(state);
-        }
         
         return ;
 
     }
 
 
+    // if(currOperation === 'draw-obstacle'){
+    //     let node = getcoordinates(cellid);
+    //     setInitialGrid();
+    //     document.addEventListener('mousedown', ()=>{
+
+
+
+    //     });
+    // }
+
+
 
 
 });
+
+
+
 
 document.querySelector(".runalgo").addEventListener('click' , async ()=>{
     if(state == 'ready') state = 'running';
@@ -111,7 +227,7 @@ document.querySelector(".randomize-button").addEventListener('click',()=>{
 
     for(let i = 0 ;i<numberofrows ; i++){
         for(let j = 0 ; j<numberofcols ; j++){
-            if(grid[i][j] === 1 || grid[i][j] === 2 ) continue;
+            if(grid[i][j] !== 0 ) continue;
             const rnd = Math.random();
             if(rnd<1/3){
                 grid[i][j] = -1;
