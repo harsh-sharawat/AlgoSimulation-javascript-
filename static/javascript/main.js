@@ -18,7 +18,7 @@ setInitialGrid();
 let isDrawing = false;
 var isMouseDown = false;
 let lastcell = null;
-
+let mode = null;
 
 
 const operationBtn = document.getElementById('curr-operation');
@@ -30,10 +30,29 @@ operationBtn.addEventListener('change', ()=>{
 });
 
 
-document.querySelector('.canvas').addEventListener('mousedown' , ()=>{
+document.querySelector('.canvas').addEventListener('mousedown' , (event)=>{
     if(!isDrawing) return;
 
     document.querySelector('.canvas').classList.add('drawing-mode');
+
+    if (event.target.classList.contains('cell')) {
+        const cellid = event.target.id;
+        const Node = getcoordinates(cellid);
+        lastcell = Node;  // also set lastcell here
+
+        const [r, c] = Node;
+
+        if (grid[r][c] === 0) {
+            grid[r][c] = -1;
+            colorWithoutDelay(cellid, 'gray');
+            mode = "draw";
+        } else if (grid[r][c] === -1) {
+            grid[r][c] = 0;
+            colorWithoutDelay(cellid, 'rgb(165, 204, 248)');
+            mode = "erase";
+        }
+    }
+
 
     isMouseDown = true;
     return;
@@ -45,6 +64,7 @@ document.querySelector('body').addEventListener('mouseup', ()=>{
 
     isMouseDown = false;
     lastcell = null;
+    mode = null;
     return;
 });
 
@@ -71,10 +91,11 @@ document.querySelector('.canvas').addEventListener('mousemove', (event)=>{
 
                 const id = getcellid(r, c);
                 if(id === lastid ) continue;
-                if(grid[r][c] === 0 ){
+                if(grid[r][c] === 0 && mode === "draw"){
                     grid[r][c] = -1;
                     colorWithoutDelay(id, 'gray');
-                }else if(grid[r][c] === -1){
+                    continue;
+                }if(grid[r][c] === -1 && mode == "erase"){
                     grid[r][c] = 0 ;
                     colorWithoutDelay(id , 'rgb(165, 204, 248)');
                 } 
