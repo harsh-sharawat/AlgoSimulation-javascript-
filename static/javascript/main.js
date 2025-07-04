@@ -1,13 +1,13 @@
 
 import {bfs} from './bfs.js';
-import {colorWithoutDelay} from './utilities.js';
+import {colorWithoutDelay,getcellid , getcoordinates} from './utilities.js';
 let grid = [];
 export let state = 'start_node';
 let start_node = null;  // grid val = 1; 
 let end_node = null; // grid val = 2 ;
 
-let numberofcols = 0 ;
-let numberofrows = 0 ;
+export let numberofcols = 0 ;
+export let numberofrows = 0 ;
 setValues();
 resetGrid();
 setInitialGrid();
@@ -354,20 +354,6 @@ function stopalgo(){
     
 } 
 
-
-function getcoordinates(cellid){
-    let i = Math.floor(cellid / (numberofcols));
-    let j = cellid%(numberofcols);
-
-
-    
-    
-    return [i,j];
-}
-
-function getcellid(i,j){
-    return i*numberofcols +j ;
-}
 
 
 function set_state(){

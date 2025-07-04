@@ -1,5 +1,5 @@
 import {Queue} from './queue.js';
-import {updateColor} from './utilities.js';
+import {updateColor , backtrack,coordToKey} from './utilities.js';
 import {state} from './main.js';
 
 
@@ -20,8 +20,16 @@ export async function bfs(startnode, endnode , grid){
     const i = startnode[0];
     const j = startnode[1];
 
+    const map = new Map();
+
+    
+
     vis[i][j]  = -1; 
     while(!q.empty()){
+
+
+
+            
 
             if(state!='running'){
                 console.log('ranalgo intrrupted');
@@ -36,6 +44,7 @@ export async function bfs(startnode, endnode , grid){
 
             if(curri === endnode[0] && currj === endnode[1]){
                 console.log('target reached');
+                await backtrack(map , startnode, endnode);
                 break;
             }
             const cellid = curri*numberofcols + currj;
@@ -50,6 +59,7 @@ export async function bfs(startnode, endnode , grid){
                 if(isvalid(ni , nj , numberofrows, numberofcols) &&  vis[ni][nj]!==-1){
                     vis[ni][nj] = -1;
                     q.push([ni, nj]); 
+                    map.set(coordToKey(ni , nj) , coordToKey(curri , currj));
                 }
             }
         
