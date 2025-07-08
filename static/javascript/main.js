@@ -1,5 +1,6 @@
 
 import {bfs} from './bfs.js';
+import {dfs} from './dfs.js';
 import {colorWithoutDelay,getcellid , getcoordinates} from './utilities.js';
 let grid = [];
 export let state = 'start_node';
@@ -209,11 +210,21 @@ document.querySelector('.canvas').addEventListener('click', (event)=>{
 
 
 
+const algomap = {
+    "bfs" : bfs, 
+    "dfs" : dfs, 
+    // "bi-di" : biDirectional , 
+    // "a-star" :   a_star, 
+
+
+}
+
+
 
 document.querySelector(".runalgo").addEventListener('click' , async ()=>{
     if(state == 'ready') state = 'running';
     else {
-        // display_message(state);
+        
         console.log('not ready to run algo');
         return ;
     }
@@ -223,7 +234,14 @@ document.querySelector(".runalgo").addEventListener('click' , async ()=>{
     document.querySelector(".runalgo").disabled = true;
     // document.querySelector('.randomize-button').disabled = true;
     
-    await bfs(start_node , end_node , grid);
+
+    const algo = document.getElementById("curr-algo").value;
+    console.log(algo);
+
+
+    // function fun = algomap[algo];
+    await algomap[algo](start_node, end_node, grid);
+   
     stopalgo();
 });
 
@@ -282,9 +300,10 @@ function setValues(){
         
     let w = Math.floor(rect.width);
     let t = rect.top;
-        
+    
+    
 
-    const h = Math.floor(window.screen.height - t);
+    const h = Math.floor(window.innerHeight - t);
     document.querySelector(".canvas").style.height = `${h}px`;
 
     numberofrows = Math.floor(h/20);

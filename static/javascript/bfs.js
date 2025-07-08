@@ -1,12 +1,8 @@
 import {Queue} from './queue.js';
-import {updateColor , backtrack,coordToKey} from './utilities.js';
+import {updateColor , backtrack,coordToKey, isvalid} from './utilities.js';
 import {state} from './main.js';
 
 
-function isvalid(i , j , n , m )
-{
-    return (i>=0 && i<n && j>=0 && j<m );
-}
 
 
 export async function bfs(startnode, endnode , grid){

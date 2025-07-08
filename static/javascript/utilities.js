@@ -67,3 +67,9 @@ export async function backtrack( map , startnode, endnode){
     updateColor(getcellid(...endnode) , "red");
     return;
 }
+
+
+export function isvalid(i , j , n , m )
+{
+    return (i>=0 && i<n && j>=0 && j<m );
+}

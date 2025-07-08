@@ -22,6 +22,9 @@
         
 
        }
+       .cell:hover{
+        background-color: rgb(62, 106, 237)
+       }
        .drawing-mode{
         cursor: crosshair;
        } 
@@ -42,11 +45,20 @@
             <option value="start-node">select start node</option>
             <option value="end-node">select end node</option>
             <option value="draw-obstacle">draw obstacle</option>
-            <option value="erase-obstacle">erase obstacle</option>
 
         </select>
         <button class = "randomize-button">Random Obstacles</button>
+
+        <select name="algo-choice" id="curr-algo">
+            <option value="bfs">BFS</option>
+            <option value="dfs">DFS</option>
+            <option value="bi-di">bi-directional BFS</option>
+            <option value="a-star">A*</option>
+
+        </select>
         <button class = 'reset' >Reset</button>
+
+
 
     </div>
 
