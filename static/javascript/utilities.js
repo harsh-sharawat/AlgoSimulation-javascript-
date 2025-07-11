@@ -1,11 +1,13 @@
 import {numberofcols} from "./main.js";
 
+import { colorTheme } from "./colorTheme.js";
+
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export async function updateColor(cellid,color='yellow',time = 10){
+export async function updateColor(cellid,color=colorTheme.traverse,time = 10){
     
     const cell = document.getElementById(`${cellid}`);
     cell.style.backgroundColor = color;
@@ -52,14 +54,14 @@ const coords = keyToCoord('12,34'); // { x: 12, y: 34 }
 
 
 export async function backtrack( map , startnode, endnode){
-    const [r,c] = startnode;
+    let [r,c] = startnode;
     let [curri , currj] = endnode;
 
     while(!(curri === r && currj === c)){
         // let [ni , nj ] = map.get([curri, currj]);
 
         const cellid = getcellid(curri ,currj);
-        await updateColor(cellid , "#4169E1");
+        await updateColor(cellid , colorTheme.backtrack);
 
         [curri , currj] = keyToCoord(map.get(coordToKey(curri , currj )));
     }

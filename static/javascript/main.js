@@ -1,5 +1,7 @@
-
+import { biDirectional } from './bidirectional.js';
+import { colorTheme } from './colorTheme.js';
 import {bfs} from './bfs.js';
+import { aStar } from './a-star.js';
 import {dfs} from './dfs.js';
 import {colorWithoutDelay,getcellid , getcoordinates} from './utilities.js';
 let grid = [];
@@ -9,6 +11,9 @@ let end_node = null; // grid val = 2 ;
 
 export let numberofcols = 0 ;
 export let numberofrows = 0 ;
+
+
+
 setValues();
 resetGrid();
 setInitialGrid();
@@ -45,11 +50,11 @@ document.querySelector('.canvas').addEventListener('mousedown' , (event)=>{
 
         if (grid[r][c] === 0) {
             grid[r][c] = -1;
-            colorWithoutDelay(cellid, 'gray');
+            colorWithoutDelay(cellid, colorTheme.obstacle);
             mode = "draw";
         } else if (grid[r][c] === -1) {
             grid[r][c] = 0;
-            colorWithoutDelay(cellid, 'rgb(165, 204, 248)');
+            colorWithoutDelay(cellid, colorTheme.default);
             mode = "erase";
         }
     }
@@ -94,11 +99,11 @@ document.querySelector('.canvas').addEventListener('mousemove', (event)=>{
                 if(id === lastid ) continue;
                 if(grid[r][c] === 0 && mode === "draw"){
                     grid[r][c] = -1;
-                    colorWithoutDelay(id, 'gray');
+                    colorWithoutDelay(id, colorTheme.obstacle);
                     continue;
                 }if(grid[r][c] === -1 && mode == "erase"){
                     grid[r][c] = 0 ;
-                    colorWithoutDelay(id , 'rgb(165, 204, 248)');
+                    colorWithoutDelay(id , colorTheme.default);
                 } 
             }
         }
@@ -161,12 +166,12 @@ document.querySelector('.canvas').addEventListener('click', (event)=>{
         
             if(start_node){
                 grid[start_node[0]][start_node[1]] = 0 ;
-                colorWithoutDelay(getcellid(start_node[0], start_node[1]) , 'rgb(165, 204, 248)');
+                colorWithoutDelay(getcellid(start_node[0], start_node[1]) , colorTheme.default);
                 
             }
             grid[node[0]][node[1]] = 1; 
             start_node = node;
-            colorWithoutDelay(cellid , 'green');
+            colorWithoutDelay(cellid , colorTheme.start);
            
             set_state();
             console.log(state);
@@ -179,12 +184,12 @@ document.querySelector('.canvas').addEventListener('click', (event)=>{
         let node  = Node;
             if(end_node){
                 grid[end_node[0]][end_node[1]] = 0 ;
-                colorWithoutDelay(getcellid(end_node[0] , end_node[1]) , 'rgb(165, 204, 248)');
+                colorWithoutDelay(getcellid(end_node[0] , end_node[1]) , colorTheme.default);
 
             }
             grid[node[0]][node[1]] = 2; 
             end_node = node;
-            colorWithoutDelay(cellid , 'red');
+            colorWithoutDelay(cellid , colorTheme.end);
             set_state();
             console.log(state);
         
@@ -213,9 +218,8 @@ document.querySelector('.canvas').addEventListener('click', (event)=>{
 const algomap = {
     "bfs" : bfs, 
     "dfs" : dfs, 
-    // "bi-di" : biDirectional , 
-    // "a-star" :   a_star, 
-
+    "bi-di" : biDirectional , 
+    "a-star" :   aStar, 
 
 }
 
@@ -270,10 +274,10 @@ document.querySelector(".randomize-button").addEventListener('click',()=>{
             const rnd = Math.random();
             if(rnd<1/3){
                 grid[i][j] = -1;
-                colorWithoutDelay(getcellid(i , j) , 'gray');
+                colorWithoutDelay(getcellid(i , j) , colorTheme.obstacle);
             }else{
                 grid[i][j] = 0 ;
-                colorWithoutDelay(getcellid(i , j ), 'rgb(165, 204, 248)');
+                colorWithoutDelay(getcellid(i , j ), colorTheme.default);
             }
         }
     }
@@ -349,9 +353,9 @@ function setInitialGrid(){
         // };
            
         const [a,b] = getcoordinates(i);
-        if(grid[a][b] === -1) cell.style.backgroundColor = 'gray';
-        else if(grid[a][b] === 1) cell.style.backgroundColor = 'green';
-        else if(grid[a][b] === 2) cell.style.backgroundColor = 'red';   
+        if(grid[a][b] === -1) cell.style.backgroundColor = colorTheme.obstacle;
+        else if(grid[a][b] === 1) cell.style.backgroundColor = colorTheme.start;
+        else if(grid[a][b] === 2) cell.style.backgroundColor = colorTheme.end;   
         
         canvas.appendChild(cell);
 
