@@ -230,6 +230,8 @@ document.querySelector(".runalgo").addEventListener('click' , async ()=>{
     else {
         
         console.log('not ready to run algo');
+        var message = `select ${state} first to run`;
+        alert(message);
         return ;
     }
     setInitialGrid();
@@ -267,12 +269,14 @@ document.querySelector(".pause-button").addEventListener('click', ()=>{
 
 document.querySelector(".randomize-button").addEventListener('click',()=>{
     
-
+    const val = 10 - document.getElementById('density').value;
     for(let i = 0 ;i<numberofrows ; i++){
         for(let j = 0 ; j<numberofcols ; j++){
             if(grid[i][j] !== 0 && grid[i][j]!=-1) continue;
             const rnd = Math.random();
-            if(rnd<1/3){
+            
+            
+            if(rnd < 1/val ){
                 grid[i][j] = -1;
                 colorWithoutDelay(getcellid(i , j) , colorTheme.obstacle);
             }else{
