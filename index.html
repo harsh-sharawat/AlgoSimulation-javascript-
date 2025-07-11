@@ -5,15 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-       .canvas{
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f6f8;
+    }
+
+    .navbar {
+        background-color: #2c3e50;
+        color: #fff;
+        padding: 0.7rem;
+        text-align: left;
+        font-size: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar ul {
+        list-style: none;
+    }
+
+    a{
+        color: inherit;        /* Inherits color from parent element */
+        text-decoration: none; /* Removes underline */
+          
+             /* Changes the cursor from pointer to default */
+    }
+   
+    
+
+    .options {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .options ul {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+    }
+
+    .options li {
+        border: solid 2px #ffffff;
+        border-radius: 10px;
+        padding: 0.5rem;
+        background-color: #e8faff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 160px;
+    }
+
+    .options li p {
+        margin: 0;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .options button {
+        width: 100%;
+        padding: 8px 14px;
+        margin: 2px 0;
+        border: none;
+        border-radius: 6px;
+        background-color: #3498db;
+        color: white;
+        font-weight: 600px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .options button:hover:enabled {
+        background-color: #2980b9;
+    }
+
+    .options button:disabled {
+        background-color: #7f8c8d;
+        cursor: not-allowed;
+    }
+
+    .options select {
+        padding: 6px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+    }
+
+    .canvas{
      
         display: grid;
         background-color: rgb(158, 163, 163);
+        margin-left: 10px;
+        margin-right: 10px;
        
-        gap : 0px;
-       }
+       
+    }
 
-       .cell{
+    .cell{
         border: 1px solid rgb(158, 163, 163); 
         border-radius: 20%;
        
@@ -23,43 +113,79 @@
         /* border-radius: 20%; */
         
 
-       }
-       .cell:hover{
+    }
+    .cell:hover{
         background-color: rgb(62, 106, 237)
-       }
+    }
        .drawing-mode{
         cursor: crosshair;
-       } 
+    }
+</style>
 
-    </style>
 </head>
 <body>
     <div class = "navbar">
-        <h1>this will be nav</h1>
+        <ul>
+            <li>
+                <a href="index.html">Graph Algorithms</a>
+            </li>
+
+           
+        </ul>
     
     </div>
 
     <div class = "options">
-        <button class = "runalgo" >Run</button>
-        <button class = "pause-button" disabled>Pause</button>
-        <select name="state-choice" id = "curr-operation" >
 
-            <option value="start-node">select start node</option>
-            <option value="end-node">select end node</option>
-            <option value="draw-obstacle">draw obstacle</option>
+        <ul>
+            <li>
+                
+                <button class = "runalgo" >Run</button>
+                <button class = "pause-button" disabled>Pause</button>
+               
+            </li>
 
-        </select>
-        <button class = "randomize-button">Random Obstacles</button>
+            <li>
+                 <button class = 'reset' >Reset</button>
+            </li>
 
-        <select name="algo-choice" id="curr-algo">
-            <option value="bfs">BFS</option>
-            <option value="dfs">DFS</option>
-            <option value="bi-di">bi-directional BFS</option>
-            <option value="a-star">A*</option>
 
-        </select>
-        <button class = 'reset' >Reset</button>
+        <li>
 
+            <p>Cursor Operations
+            </p>
+
+            <select name="state-choice" id = "curr-operation" >
+
+                <option value="start-node">select start node</option>
+                <option value="end-node">select end node</option>
+                <option value="draw-obstacle">draw obstacle</option>
+
+            </select>
+
+        </li>
+
+        <li>
+            <p>Select Algorithm</p>
+            <select name="algo-choice" id="curr-algo">
+                <option value="bfs">BFS</option>
+                <option value="dfs">DFS</option>
+                <option value="bi-di">bi-directional BFS</option>
+                <option value="a-star">A*</option>
+
+            </select>
+        </li>
+
+        <li>
+            Random Obstacles
+            <button class = "randomize-button">Generate</button>
+        </li>
+
+        <div>
+            
+        </div>
+
+    </ul>
 
 
     </div>
