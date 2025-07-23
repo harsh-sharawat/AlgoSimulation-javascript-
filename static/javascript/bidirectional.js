@@ -1,5 +1,6 @@
 import { Queue } from "./queue.js";
 import {isvalid ,  getcellid, getcoordinates , coordToKey, updateColor, backtrack } from "./utilities.js";
+import { state } from "./main.js";
 
 
 
@@ -21,13 +22,18 @@ export async function biDirectional(startnode , endnode , grid){
     let flag = true;
     while(!(q1.empty() && q2.empty())){
 
+        if(state!=='running'){
+            console.log('algo intrrupted');
+            break;
+        }
+
         // from start node traversal
         if(!q1.empty()){
             let [r,c] = q1.pop();
 
             if(r === endnode[0] && c === endnode[1]){
                 console.log("target reached");
-                backtrack(map1 , startnode , endnode);
+                await backtrack(map1 , startnode , endnode);
                 
                 break;
             } 
@@ -52,7 +58,7 @@ export async function biDirectional(startnode , endnode , grid){
                     q1.push([nr, nc]);
                     vis[nr][nc] = 3 ;
                     map1.set(coordToKey(nr,nc), coordToKey(r,c)); 
-                    await updateColor(getcellid(nr, nc) , undefined , 5);
+                    await updateColor(getcellid(nr, nc));
 
                 }
 

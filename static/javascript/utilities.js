@@ -1,13 +1,15 @@
-import {numberofcols} from "./main.js";
+import {numberofcols, TimeDelay} from "./main.js";
 
 import { colorTheme } from "./colorTheme.js";
+
+
 
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export async function updateColor(cellid,color=colorTheme.traverse,time = 10){
+export async function updateColor(cellid,color=colorTheme.traverse, time = TimeDelay){
     
     const cell = document.getElementById(`${cellid}`);
     cell.style.backgroundColor = color;

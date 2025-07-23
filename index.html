@@ -3,124 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/graph.css">
     <title>Document</title>
-    <style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f4f6f8;
-    }
 
-    .navbar {
-        background-color: #2c3e50;
-        color: #fff;
-        padding: 0.7rem;
-        text-align: left;
-        font-size: 1rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar ul {
-        list-style: none;
-    }
-
-    a{
-        color: inherit;        /* Inherits color from parent element */
-        text-decoration: none; /* Removes underline */
-          
-             /* Changes the cursor from pointer to default */
-    }
-   
-    
-
-    .options {
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .options ul {
-        display: flex;
-        flex-wrap: wrap;
-        list-style: none;
-    }
-
-    .options li {
-        border: solid 2px #ffffff;
-        border-radius: 10px;
-        padding: 0.5rem;
-        background-color: #e8faff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-        min-width: 160px;
-    }
-
-    .options li p {
-        margin: 0;
-        font-weight: bold;
-        color: #2c3e50;
-    }
-
-    .options button {
-        width: 100%;
-        padding: 8px 14px;
-        margin: 2px 0;
-        border: none;
-        border-radius: 6px;
-        background-color: #3498db;
-        color: white;
-        font-weight: 600px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .options button:hover:enabled {
-        background-color: #2980b9;
-    }
-
-    .options button:disabled {
-        background-color: #7f8c8d;
-        cursor: not-allowed;
-    }
-
-    .options select {
-        padding: 6px 12px;
-        font-size: 14px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        background-color: #f9f9f9;
-    }
-
-    .canvas{
-     
-        display: grid;
-        background-color: rgb(158, 163, 163);
-        margin-left: 10px;
-        margin-right: 10px;
-       
-       
-    }
-
-    .cell{
-        border: 1px solid rgb(158, 163, 163); 
-        border-radius: 20%;
-       
-        transition: background-color 0.1s ease; /* smooth color change */
-        box-sizing: border-box;
-        background-color: rgb(199, 251, 199);
-        /* border-radius: 20%; */
-        
-
-    }
-    .cell:hover{
-        background-color: rgb(62, 106, 237)
-    }
-       .drawing-mode{
-        cursor: crosshair;
-    }
-</style>
 
 </head>
 <body>
@@ -149,44 +34,53 @@
             </li>
 
 
-        <li>
+            <li>
 
-            <p>Cursor Operations
-            </p>
+                <p>Cursor Operations
+                </p>
 
-            <select name="state-choice" id = "curr-operation" >
+                <select name="state-choice" id = "curr-operation" >
 
-                <option value="start-node">select start node</option>
-                <option value="end-node">select end node</option>
-                <option value="draw-obstacle">draw/Erase obstacle</option>
+                    <option value="start-node">select start node</option>
+                    <option value="end-node">select end node</option>
+                    <option value="draw-obstacle">draw/Erase obstacle</option>
 
-            </select>
+                </select>
 
-        </li>
+            </li>
 
-        <li>
-            <p>Select Algorithm</p>
-            <select name="algo-choice" id="curr-algo">
-                <option value="bfs">BFS</option>
-                <option value="dfs">DFS</option>
-                <option value="bi-di">bi-directional BFS</option>
-                <option value="a-star">A*</option>
+            <li>
+                <p>Select Algorithm</p>
+                <select name="algo-choice" id="curr-algo">
+                    <option value="bfs">BFS</option>
+                    <option value="dfs">DFS</option>
+                    <option value="bi-di">bi-directional BFS</option>
+                    <option value="a-star">A*</option>
 
-            </select>
-        </li>
+                </select>
+            </li>
 
-        <li>
-            <p>Random Obstacles</p>
-            <label for="input">Density</label>
-            <input id = "density" type="range" min = "1"  max="9" value = "7">
-            <button class = "randomize-button">Generate</button>
-        </li>
+            <li>
+                <p>Random Obstacles</p>
+                <label for="density">Density</label>
+                <input id = "density" type="range" min = "1"  max="9" value = "7">
+                <button class = "randomize-button">Generate</button>
+            </li>
+                
+            <li>
+                <p>Time Delay</p>
+                <label for="time-delay" id = "timeValue">10 (ms) </label>
+                <input id = "time-delay" type="range" min = "0"  max="100" value = "10">
 
-        <div>
-            
-        </div>
+            </li>
 
-    </ul>
+            <li>
+                <p>Cell Size</p>
+                <label for="cell-size" id = "cell-sizeValue">20 (px) </label>
+                <input id = "cell-size" type="range" min = "5"  max="100" value = "20">
+            </li>
+
+        </ul>
 
 
     </div>

@@ -11,12 +11,15 @@ let end_node = null; // grid val = 2 ;
 
 export let numberofcols = 0 ;
 export let numberofrows = 0 ;
+export let TimeDelay = 10 ;
+
+let cell_Size = 20;
 
 
 
-setValues();
-resetGrid();
-setInitialGrid();
+
+
+completeReset();
 
 
 
@@ -295,6 +298,25 @@ document.querySelector('.reset').addEventListener('click' , ()=>{
 
 
 
+document.getElementById('time-delay').addEventListener('change' , ()=>{
+    TimeDelay = document.getElementById('time-delay').value;
+})
+
+
+document.getElementById('time-delay').addEventListener('input',function (){
+    document.getElementById('timeValue').textContent = `${this.value} (ms)`;
+})
+
+document.getElementById('cell-size').addEventListener('change' , ()=>{
+    cell_Size = document.getElementById('cell-size').value;
+    completeReset();
+})
+
+
+document.getElementById('cell-size').addEventListener('input',function (){
+    document.getElementById('cell-sizeValue').textContent = `${this.value} (ms)`;
+})
+
 
 
 
@@ -314,8 +336,8 @@ function setValues(){
     const h = Math.floor(window.innerHeight - t);
     document.querySelector(".canvas").style.height = `${h}px`;
 
-    numberofrows = Math.floor(h/20);
-    numberofcols = Math.floor(w/20);
+    numberofrows = Math.floor(h/cell_Size);
+    numberofcols = Math.floor(w/cell_Size);
     console.log(numberofcols);
     console.log(numberofrows);
 }
@@ -398,6 +420,7 @@ function set_state(){
 
 
 function completeReset(){
+    setValues();
     resetGrid();
     start_node = null;
     end_node = null;
