@@ -30,10 +30,10 @@ let lastcell = null;
 let mode = null;
 
 
-const operationBtn = document.getElementById('curr-operation');
+const operationForm = document.getElementById('curr-operation');
 
-operationBtn.addEventListener('change', ()=>{
-    isDrawing = (operationBtn.value === 'draw-obstacle');
+operationForm.addEventListener('change', ()=>{
+    isDrawing = (document.querySelector('input[name="operation"]:checked').value === 'draw-obstacle');
 
   
 });
@@ -159,7 +159,7 @@ document.querySelector('.canvas').addEventListener('click', (event)=>{
         cellid = event.target.id;
     }else return ;
 
-    const currOperation = document.getElementById('curr-operation').value;
+    const currOperation = document.querySelector('input[name="operation"]:checked').value
 
     let Node = getcoordinates(cellid);
     if(grid[Node[0]][Node[1]] === 1 || grid[Node[0]][Node[1]] === 2) return;

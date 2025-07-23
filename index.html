@@ -23,7 +23,7 @@
     <div class = "options">
 
         <ul>
-            <li>
+            <li class = "algo-control">
                 
                 <button class = "runalgo" >Run</button>
                 <button class = "pause-button" disabled>Pause</button>
@@ -39,13 +39,19 @@
                 <p>Cursor Operations
                 </p>
 
-                <ul name="state-choice" id = "curr-operation" >
+                <form id="curr-operation">
+                    <label class = radio-container>
+                        <input type="radio" name="operation" value="start-node" checked>
+                         Select Start node
+                    </label>
+                    <label class = radio-container>
+                        <input type="radio" name="operation" value="end-node"> Select End node
+                    </label>
+                    <label class = radio-container>
+                        <input type="radio" name="operation" value="draw-obstacle"> Draw/Erase Obstacles
+                    </label>
+                </form>
 
-                    <li value="start-node">select start node</li>
-                    <li value="end-node">select end node</li>
-                    <li value="draw-obstacle">draw/Erase obstacle</li>
-
-                </ul>
 
             </li>
 
