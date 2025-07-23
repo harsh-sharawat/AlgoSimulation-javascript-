@@ -15,8 +15,9 @@
   - Depth-First Search (DFS)
   - A* (A-Star)
   - Bidirectional BFS
-- ⚡ Adjustable obstacle density with a range slider.
+- ⚡ Adjustable obstacle density,Time Delay and Cell Size.
 - 🟩 Real-time grid update and smooth color transitions.
+- 
 - 🔁 Reset grid and re-run simulations easily.
 
 ---
@@ -33,9 +34,9 @@ Step 5: Click Run to watch the algorithm in action!
 
 ---
 ## 🛠️ Technologies Used
-- HTML5 + CSS3 – for UI layout and styling
+- HTML + CSS3 – for UI layout and styling
 
-- Vanilla JavaScript (ES6 modules) – for interactive behavior
+- JavaScript (ES6 Modules) – for modular, interactive behavior and application logic
 
 - DOM API – dynamic grid creation and manipulation
 
